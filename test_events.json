@@ -1,0 +1,87 @@
+{
+  "test_cases": [
+    {
+      "name": "Manager Agent with 4 Sub-Agents",
+      "description": "Barclays Vulnerability Checker - has 4 sub-agents and 1 tool",
+      "event": {
+        "agent_id": "68d0f0449856bad60bbe6945",
+        "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+      }
+    },
+    {
+      "name": "Manager Agent with 2 Sub-Agents",
+      "description": "Banking Intelligence Orchestrator - has 2 sub-agents",
+      "event": {
+        "agent_id": "68c94b7c40710a62d7fc5f27",
+        "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+      }
+    },
+    {
+      "name": "Agent with Tools Only",
+      "description": "PSL Interest Agent - has 2 tools, no sub-agents",
+      "event": {
+        "agent_id": "68f8af60058210757bf5c3d6",
+        "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+      }
+    },
+    {
+      "name": "Simple Agent - No Tools No Sub-Agents",
+      "description": "Customer Support Agent - basic agent",
+      "event": {
+        "agent_id": "696e545bc3a33af8ef063625",
+        "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+      }
+    },
+    {
+      "name": "API Gateway Format - Body as String",
+      "description": "Test with API Gateway event format where body is JSON string",
+      "event": {
+        "body": "{\"agent_id\": \"68d0f0449856bad60bbe6945\", \"api_key\": \"sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb\"}",
+        "httpMethod": "POST",
+        "path": "/fetch"
+      }
+    },
+    {
+      "name": "API Gateway Format - Query Parameters",
+      "description": "Test with query string parameters",
+      "event": {
+        "queryStringParameters": {
+          "agent_id": "68d0f0449856bad60bbe6945",
+          "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+        },
+        "httpMethod": "GET",
+        "path": "/fetch"
+      }
+    },
+    {
+      "name": "Error - Missing Agent ID",
+      "description": "Should return 400 error for missing agent_id",
+      "event": {
+        "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+      }
+    },
+    {
+      "name": "Error - Missing API Key",
+      "description": "Should return 400 error for missing api_key",
+      "event": {
+        "agent_id": "68d0f0449856bad60bbe6945"
+      }
+    },
+    {
+      "name": "Error - Invalid Agent ID",
+      "description": "Should return 404 for non-existent agent",
+      "event": {
+        "agent_id": "000000000000000000000000",
+        "api_key": "sk-default-aNMHnVS5iLbkSM678NwS2KG5k2ADnPQb"
+      }
+    },
+    {
+      "name": "Error - Invalid API Key",
+      "description": "Should fail authentication with invalid key",
+      "event": {
+        "agent_id": "68d0f0449856bad60bbe6945",
+        "api_key": "sk-invalid-key"
+      }
+    }
+  ]
+}

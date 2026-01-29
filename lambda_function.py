@@ -3,12 +3,13 @@ import urllib.request
 import urllib.error
 import uuid
 from typing import Optional
-
+import os
 BASE_URL = "https://agent-prod.studio.lyzr.ai"
 
 # Scoring agent configuration
-SCORING_AGENT_ID = "scoring-agent-001"
-SCORING_AGENT_API_KEY = "sk-default-scoringAgentAPIKey123456"
+SCORING_AGENT_ID = "697b2ab3c03792e039e5ccb2"
+SCORING_AGENT_API_KEY = os.getenv("SCORING_AGENT_API_KEY", "sk-default-scoringAgentAPIKey123456")
+
 
 
 def make_request(url: str, api_key: str) -> Optional[dict]:
@@ -435,7 +436,7 @@ def lambda_handler(event, context):
 if __name__ == "__main__":
     test_event = {
         "agent_id": "68d0f0449856bad60bbe6945",
-        "api_key": "sk-your-lyzr-api-key-here",
+        "api_key": SCORING_AGENT_API_KEY,
     }
     result = lambda_handler(test_event, None)
     print(result["body"])

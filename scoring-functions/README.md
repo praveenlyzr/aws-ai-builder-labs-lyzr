@@ -26,21 +26,50 @@ POST https://jitzti21x0.execute-api.us-east-1.amazonaws.com/default/fetchAgentsR
 
 ## Response
 
+Score and breakdown appear first in the response for easy access:
+
 ```json
 {
-  "agent_tree": { ... },
-  "statistics": {
-    "total_agents": 5,
-    "total_tools": 1,
-    "max_depth": 1
+  "score": 100,
+  "breakdown": {
+    "architecture": 25,
+    "tools": 25,
+    "knowledge": 25,
+    "quality": 25
   },
-  "scoring": {
-    "score": 40,
-    "summary": "Overall: 40 / 100 (40.0%)",
-    "breakdown": { ... }
-  }
+  "debug": "Assessment complete. All criteria satisfied...",
+  "statistics": {
+    "total_agents": 4,
+    "total_tools": 3,
+    "max_depth": 1,
+    "models_used": ["gpt-4.1"],
+    "providers_used": ["OpenAI"],
+    "agents_with_tools": 3,
+    "agents_without_instructions": 0,
+    "total_instruction_chars": 10480,
+    "tool_sources": ["custom_api"]
+  },
+  "agent_tree": {
+    "agent": { ... },
+    "tools": [ ... ],
+    "sub_agents": [ ... ]
+  },
+  "display_tree": "[Agent] Support Coordinator\n  ...",
+  "tools_available": 12
 }
 ```
+
+### Response Fields
+
+| Field | Description |
+|-------|-------------|
+| `score` | Total score (0-100) |
+| `breakdown` | Per-category scores (architecture, tools, knowledge, quality) |
+| `debug` | Explanation of scoring decisions |
+| `statistics` | Summary stats about the agent tree |
+| `agent_tree` | Complete tree of agents, tools, and sub-agents |
+| `display_tree` | Human-readable tree representation |
+| `tools_available` | Total tools available for the API key |
 
 ## Example
 

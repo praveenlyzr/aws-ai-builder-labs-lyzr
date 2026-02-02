@@ -407,15 +407,29 @@ def lambda_handler(event, context):
             scoring_result = score_agent_tree(agent_tree, scoring_api_key)
             print(f"Scoring complete: {scoring_result.get('summary', 'N/A')}")
 
-        response_data = {
-            "agent_tree": agent_tree,
-            "statistics": statistics,
-            "display_tree": display_tree,
-            "tools_available": len(all_tools_list),
-        }
+        # Build response with score first
+        response_data = {}
 
+        # Add scoring at the top if available
         if scoring_result:
-            response_data["scoring"] = scoring_result
+            breakdown = scoring_result.get("breakdown", {})
+            inner_breakdown = breakdown.get("breakdown", {})
+
+            response_data["score"] = inner_breakdown.get("score") or breakdown.get("score")
+            response_data["breakdown"] = {
+                "architecture": inner_breakdown.get("architecture"),
+                "tools": inner_breakdown.get("tools"),
+                "knowledge": inner_breakdown.get("knowledge"),
+                "quality": inner_breakdown.get("quality")
+            }
+            if inner_breakdown.get("debug"):
+                response_data["debug"] = inner_breakdown.get("debug")
+
+        # Add the rest of the data
+        response_data["statistics"] = statistics
+        response_data["agent_tree"] = agent_tree
+        response_data["display_tree"] = display_tree
+        response_data["tools_available"] = len(all_tools_list)
 
         return {
             "statusCode": 200,

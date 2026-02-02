@@ -1,4 +1,28 @@
 {
+  "score": 100,
+  "breakdown": {
+    "architecture": 25,
+    "tools": 25,
+    "knowledge": 25,
+    "quality": 25
+  },
+  "statistics": {
+    "total_agents": 4,
+    "total_tools": 3,
+    "max_depth": 1,
+    "models_used": [
+      "gpt-4.1"
+    ],
+    "providers_used": [
+      "OpenAI"
+    ],
+    "agents_with_tools": 3,
+    "agents_without_instructions": 0,
+    "total_instruction_chars": 10480,
+    "tool_sources": [
+      "custom_api"
+    ]
+  },
   "agent_tree": {
     "agent": {
       "id": "69735635a75ef8a94cc48694",
@@ -147,37 +171,6 @@
     ],
     "a2a_tools": null
   },
-  "statistics": {
-    "total_agents": 4,
-    "total_tools": 3,
-    "max_depth": 1,
-    "models_used": [
-      "gpt-4.1"
-    ],
-    "providers_used": [
-      "OpenAI"
-    ],
-    "agents_with_tools": 3,
-    "agents_without_instructions": 0,
-    "total_instruction_chars": 10480,
-    "tool_sources": [
-      "custom_api"
-    ]
-  },
   "display_tree": "[Agent] Support Coordinator\n  Model: gpt-4.1\n  ID: 69735635a75ef8a94cc48694\n  Role: Customer Support Coordinator\n  Tools (1):\n    - EscalationTool (custom_api)\n  Sub-Agents (3):\n    [Agent] Order Tracking Specialist\n      Model: gpt-4.1\n      ID: 697355d01b6268d7b9512ae2\n      Role: Order Status Expert\n      Tools (1):\n        - GetOrderStatus (custom_api)\n    [Agent] Returns Specialist\n      Model: gpt-4.1\n      ID: 697355efa75ef8a94cc4861d\n      Role: Returns and Refunds Specialist\n      Tools (1):\n        - create_return_request (custom_api)\n    [Agent] Product Info Specialist\n      Model: gpt-4.1\n      ID: 6973560d1b6268d7b9512b29\n      Role: Product Recommendation Expert",
-  "tools_available": 12,
-  "scoring": {
-    "success": true,
-    "score": null,
-    "summary": null,
-    "breakdown": {
-      "score": 100,
-      "breakdown": {
-        "architecture": 25,
-        "tools": 25,
-        "knowledge": 25,
-        "quality": 25
-      }
-    }
-  }
+  "tools_available": 12
 }

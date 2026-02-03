@@ -1,0 +1,177 @@
+{
+  "score": 195,
+  "breakdown": {
+    "architecture": 25,
+    "tools": 25,
+    "knowledge": 25,
+    "quality": 25,
+    "prompts": 95
+  },
+  "statistics": {
+    "total_agents": 4,
+    "total_tools": 3,
+    "max_depth": 1,
+    "models_used": [
+      "gpt-4.1"
+    ],
+    "providers_used": [
+      "OpenAI"
+    ],
+    "agents_with_tools": 3,
+    "agents_without_instructions": 0,
+    "total_instruction_chars": 10480,
+    "tool_sources": [
+      "custom_api"
+    ]
+  },
+  "agent_tree": {
+    "agent": {
+      "id": "69735635a75ef8a94cc48694",
+      "name": "Support Coordinator",
+      "description": "Routes customer inquiries to appropriate specialist agents, maintains casual friendly conversation tone, aggregates responses, handles escalation to human agents with full context when edge cases detected",
+      "role": "Customer Support Coordinator",
+      "goal": "Provide seamless customer support by routing inquiries to specialist agents and delivering friendly, helpful responses",
+      "model": "gpt-4.1",
+      "provider": "OpenAI",
+      "temperature": 0.4,
+      "features": [
+        {
+          "type": "MEMORY",
+          "config": {
+            "max_messages_context_count": 10
+          },
+          "priority": 0
+        },
+        {
+          "type": "TOOL_CALLING",
+          "config": {
+            "max_tries": 3
+          },
+          "priority": 0
+        }
+      ],
+      "has_instructions": true,
+      "instruction_length": 1717
+    },
+    "depth": 0,
+    "tools": [
+      {
+        "tool_name": "EscalationTool",
+        "tool_source": "custom_api",
+        "action_names": [
+          "escalate_to_human"
+        ]
+      }
+    ],
+    "sub_agents": [
+      {
+        "agent": {
+          "id": "697355d01b6268d7b9512ae2",
+          "name": "Order Tracking Specialist",
+          "description": "Handles all order status inquiries, provides tracking information, shipping details, and estimated delivery dates. Never promises specific dates without real-time carrier data",
+          "role": "Order Status Expert",
+          "goal": "Provide accurate order tracking information and shipping details to customers",
+          "model": "gpt-4.1",
+          "provider": "OpenAI",
+          "temperature": 0.3,
+          "features": [
+            {
+              "type": "TOOL_CALLING",
+              "config": {
+                "max_tries": 3
+              },
+              "priority": 0
+            }
+          ],
+          "has_instructions": true,
+          "instruction_length": 1332
+        },
+        "depth": 1,
+        "tools": [
+          {
+            "tool_name": "GetOrderStatus",
+            "tool_source": "custom_api",
+            "action_names": [
+              "get_order_status"
+            ]
+          }
+        ],
+        "sub_agents": [],
+        "a2a_tools": null,
+        "usage_description": "Delegate all order status, tracking, and shipping inquiries to this agent. Use when customers ask 'Where is my order?', 'When will it arrive?', or request tracking information.",
+        "reference_name": "Order Tracking Specialist"
+      },
+      {
+        "agent": {
+          "id": "697355efa75ef8a94cc4861d",
+          "name": "Returns Specialist",
+          "description": "Processes return requests, checks eligibility based on returns and shipping policy, initiates return workflows. Always verifies order details before processing any return or refund",
+          "role": "Returns and Refunds Specialist",
+          "goal": "Process customer return requests, verify eligibility against return policies, collect necessary information, and initiate return workflows when approved",
+          "model": "gpt-4.1",
+          "provider": "OpenAI",
+          "temperature": 0.3,
+          "features": [],
+          "has_instructions": true,
+          "instruction_length": 6012
+        },
+        "depth": 1,
+        "tools": [
+          {
+            "tool_name": "create_return_request",
+            "tool_source": "custom_api",
+            "action_names": [
+              "CREATE_RETURN"
+            ]
+          }
+        ],
+        "sub_agents": [],
+        "a2a_tools": null,
+        "usage_description": "Delegate all return and refund requests to this agent. Use when customers want to return products, request refunds, or ask about return eligibility and policies.",
+        "reference_name": "Returns Specialist"
+      },
+      {
+        "agent": {
+          "id": "6973560d1b6268d7b9512b29",
+          "name": "Product Info Specialist",
+          "description": "Provides product information and recommendations from catalog. Always asks about pet type and size before making recommendations to ensure suitability",
+          "role": "Product Recommendation Expert",
+          "goal": "Help customers find the perfect products for their pets through personalized recommendations",
+          "model": "gpt-4.1",
+          "provider": "OpenAI",
+          "temperature": 0.5,
+          "features": [
+            {
+              "type": "KNOWLEDGE_BASE",
+              "config": {
+                "lyzr_rag": {
+                  "base_url": "https://rag-prod.studio.lyzr.ai",
+                  "rag_id": "697355ff115a3970d17427b5",
+                  "rag_name": "productcatalogkbjn3q",
+                  "params": {
+                    "top_k": 5,
+                    "retrieval_type": "basic",
+                    "score_threshold": 0
+                  }
+                },
+                "agentic_rag": []
+              },
+              "priority": 0
+            }
+          ],
+          "has_instructions": true,
+          "instruction_length": 1419
+        },
+        "depth": 1,
+        "tools": [],
+        "sub_agents": [],
+        "a2a_tools": null,
+        "usage_description": "Delegate product questions and recommendation requests to this agent. Use when customers ask about product details, need recommendations for their pets, or inquire about product availability.",
+        "reference_name": "Product Info Specialist"
+      }
+    ],
+    "a2a_tools": null
+  },
+  "display_tree": "[Agent] Support Coordinator\n  Model: gpt-4.1\n  ID: 69735635a75ef8a94cc48694\n  Role: Customer Support Coordinator\n  Tools (1):\n    - EscalationTool (custom_api)\n  Sub-Agents (3):\n    [Agent] Order Tracking Specialist\n      Model: gpt-4.1\n      ID: 697355d01b6268d7b9512ae2\n      Role: Order Status Expert\n      Tools (1):\n        - GetOrderStatus (custom_api)\n    [Agent] Returns Specialist\n      Model: gpt-4.1\n      ID: 697355efa75ef8a94cc4861d\n      Role: Returns and Refunds Specialist\n      Tools (1):\n        - create_return_request (custom_api)\n    [Agent] Product Info Specialist\n      Model: gpt-4.1\n      ID: 6973560d1b6268d7b9512b29\n      Role: Product Recommendation Expert",
+  "tools_available": 12
+}

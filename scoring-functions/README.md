@@ -30,12 +30,13 @@ Score and breakdown appear first in the response for easy access:
 
 ```json
 {
-  "score": 100,
+  "score": 200,
   "breakdown": {
     "architecture": 25,
     "tools": 25,
     "knowledge": 25,
-    "quality": 25
+    "quality": 25,
+    "prompts": 100
   },
   "debug": "Assessment complete. All criteria satisfied...",
   "statistics": {
@@ -63,8 +64,8 @@ Score and breakdown appear first in the response for easy access:
 
 | Field | Description |
 |-------|-------------|
-| `score` | Total score (0-100) |
-| `breakdown` | Per-category scores (architecture, tools, knowledge, quality) |
+| `score` | Total score (0-200) |
+| `breakdown` | Per-category scores (architecture, tools, knowledge, quality, prompts) |
 | `debug` | Explanation of scoring decisions |
 | `statistics` | Summary stats about the agent tree |
 | `agent_tree` | Complete tree of agents, tools, and sub-agents |

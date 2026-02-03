@@ -420,7 +420,8 @@ def lambda_handler(event, context):
                 "architecture": inner_breakdown.get("architecture"),
                 "tools": inner_breakdown.get("tools"),
                 "knowledge": inner_breakdown.get("knowledge"),
-                "quality": inner_breakdown.get("quality")
+                "quality": inner_breakdown.get("quality"),
+                "prompts": inner_breakdown.get("prompts")
             }
             if inner_breakdown.get("debug"):
                 response_data["debug"] = inner_breakdown.get("debug")
